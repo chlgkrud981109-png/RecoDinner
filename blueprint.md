@@ -13,17 +13,19 @@ RecoDinner is a simple, client-side web application that allows users to write d
 
 ## Design
 
-The application will have a clean and simple design, with a focus on usability. The UI will consist of:
-
-*   A text input area for creating new memos.
-*   A button to add a new memo.
-*   A list of existing memos, with a delete button for each memo.
+The application will feature a modern, minimalist design inspired by the clean aesthetics of the Toss app. Key design principles will include:
+*   **Minimalism:** Clean lines, ample whitespace, and clear information hierarchy to reduce cognitive load.
+*   **Intuitive Color Palette:** A subtle, professional color scheme with a vibrant accent color for interactive elements, supporting both light and dark modes.
+*   **Modern Typography:** Emphasis on readability with a clean sans-serif font, optimized for various screen sizes.
+*   **Polished Components:** Redesigned buttons, input fields, and memo items with subtle shadows and improved spacing for a sleek, contemporary feel.
+*   **Responsive Layout:** The design will be fully responsive, ensuring a consistent and optimal user experience across mobile and desktop devices.
 
 ## Plan
 
-1.  **HTML Structure:** Create the basic HTML structure in `index.html`.
-2.  **CSS Styling:** Add styles in `style.css` for a clean and minimal look.
-3.  **JavaScript Logic:** Implement the application logic in `main.js` using ES Modules and Web Components.
+1.  **HTML Structure:** Basic HTML structure is already in place. Minor adjustments might be made to support new CSS classes/elements.
+2.  **CSS Styling (Redesign):** Completely overhaul `style.css` to implement the new Toss-inspired design, including updated color variables, typography, component styling, navigation, and responsiveness.
+3.  **JavaScript Logic:** Ensure existing functionality integrates seamlessly with the new UI. No major logic changes are anticipated for the redesign itself.
     *   Create a `<memo-item>` custom element to display each memo.
     *   Use local storage to save and retrieve memos.
     *   Implement the logic for adding and deleting memos.
+    *   Ensure theme toggling works with the new color palette.

@@ -1,39 +1,66 @@
 :root {
-  --background-color: #f4f4f4;
-  --text-color: #333;
-  --header-color: #333;
-  --button-bg-color: #333;
-  --button-text-color: #fff;
-  --button-hover-bg-color: #555;
-  --memo-bg-color: #fff;
-  --memo-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  --input-border-color: #ccc;
-  --link-color: #337ab7;
-  --link-hover-color: #23527c;
+  --color-primary: #3182f6; /* Toss app's blue accent */
+  --color-text-light: #333;
+  --color-text-dark: #f4f4f4;
+  --color-background-light: #ffffff;
+  --color-background-dark: #1a1a1a;
+  --color-card-background-light: #f7f7f7;
+  --color-card-background-dark: #2a2a2a;
+  --color-border-light: #e0e0e0;
+  --color-border-dark: #444444;
+  --color-button-bg-light: var(--color-primary);
+  --color-button-text-light: #fff;
+  --color-button-hover-bg-light: #2561c2;
+  --color-button-bg-dark: var(--color-primary);
+  --color-button-text-dark: #fff;
+  --color-button-hover-bg-dark: #2561c2;
+  --color-delete-button-bg: #ff4d4d;
+  --color-delete-button-hover-bg: #ff1a1a;
+  --box-shadow-light: 0 4px 8px rgba(0, 0, 0, 0.05);
+  --box-shadow-dark: 0 4px 12px rgba(0, 0, 0, 0.3);
+  --font-family: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;
 }
 
+/* Light theme variables */
+body {
+  --text-color: var(--color-text-light);
+  --background-color: var(--color-background-light);
+  --card-background-color: var(--color-card-background-light);
+  --border-color: var(--color-border-light);
+  --button-bg-color: var(--color-button-bg-light);
+  --button-text-color: var(--color-button-text-light);
+  --button-hover-bg-color: var(--color-button-hover-bg-light);
+  --memo-box-shadow: var(--box-shadow-light);
+  --link-color: var(--color-primary);
+  --link-hover-color: var(--color-primary);
+}
+
+/* Dark theme variables */
 [data-theme="dark"] {
-  --background-color: #121212;
-  --text-color: #f4f4f4;
-  --header-color: #f4f4f4;
-  --button-bg-color: #f4f4f4;
-  --button-text-color: #333;
-  --button-hover-bg-color: #ddd;
-  --memo-bg-color: #333;
-  --memo-box-shadow: 0 2px 5px rgba(255, 255, 255, 0.1);
-  --input-border-color: #555;
-  --link-color: #58a6ff;
-  --link-hover-color: #79b8ff;
+  --text-color: var(--color-text-dark);
+  --background-color: var(--color-background-dark);
+  --card-background-color: var(--color-card-background-dark);
+  --border-color: var(--color-border-dark);
+  --button-bg-color: var(--color-button-bg-dark);
+  --button-text-color: var(--color-button-text-dark);
+  --button-hover-bg-color: var(--color-button-hover-bg-dark);
+  --memo-box-shadow: var(--box-shadow-dark);
+  --link-color: var(--color-primary);
+  --link-hover-color: var(--color-primary);
 }
 
 /* General styles */
+* {
+  box-sizing: border-box;
+}
+
 body {
-  font-family: sans-serif;
+  font-family: var(--font-family);
   line-height: 1.6;
   margin: 0;
   background-color: var(--background-color);
   color: var(--text-color);
-  transition: background-color 0.3s, color 0.3s;
+  transition: background-color 0.3s ease, color 0.3s ease;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -42,7 +69,7 @@ body {
 main {
   flex: 1;
   width: 100%;
-  max-width: 800px;
+  max-width: 768px; /* Slightly wider for app feel */
   margin: 0 auto;
   padding: 20px;
 }
@@ -51,81 +78,235 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px;
-  border-bottom: 1px solid var(--input-border-color);
+  padding: 16px 20px; /* More padding */
+  border-bottom: 1px solid var(--border-color);
+  background-color: var(--background-color); /* Ensure header background matches theme */
 }
 
 h1 {
-  color: var(--header-color);
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--text-color);
   margin: 0;
+}
+
+h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-color);
+  margin-top: 2rem;
+  margin-bottom: 1rem;
 }
 
 nav {
   display: flex;
-  gap: 15px;
+  gap: 1.5rem; /* Increased spacing */
 }
 
 nav a {
   color: var(--link-color);
   text-decoration: none;
+  font-weight: 500;
+  padding: 0.5rem 0;
+  position: relative;
 }
 
 nav a:hover {
   color: var(--link-hover-color);
 }
 
+nav a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--link-hover-color);
+  transition: width 0.3s ease;
+}
+
+nav a:hover::after {
+  width: 100%;
+}
+
 /* Form styles */
 #memo-form {
   display: flex;
   flex-direction: column;
-  margin-bottom: 20px;
+  gap: 10px; /* Gap between input and button */
+  margin-bottom: 30px;
+  background-color: var(--card-background-color);
+  padding: 20px;
+  border-radius: 12px; /* More rounded */
+  box-shadow: var(--box-shadow-light); /* Apply light shadow always for forms */
+}
+
+[data-theme="dark"] #memo-form {
+  box-shadow: var(--box-shadow-dark);
 }
 
 #memo-input {
   width: 100%;
-  padding: 10px;
-  border: 1px solid var(--input-border-color);
-  background-color: var(--memo-bg-color);
+  padding: 12px 15px; /* More padding */
+  border: 1px solid var(--border-color);
+  background-color: var(--background-color);
   color: var(--text-color);
-  border-radius: 5px;
-  margin-bottom: 10px;
+  border-radius: 8px; /* More rounded */
   resize: vertical;
+  min-height: 80px;
+  font-family: var(--font-family);
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+#memo-input:focus {
+  outline: none;
+  border-color: var(--color-primary);
 }
 
 button {
-  padding: 10px 15px;
+  padding: 12px 20px;
   border: none;
   background-color: var(--button-bg-color);
   color: var(--button-text-color);
-  border-radius: 5px;
+  border-radius: 8px; /* More rounded */
   cursor: pointer;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: var(--box-shadow-light);
 }
 
 button:hover {
   background-color: var(--button-hover-bg-color);
+  box-shadow: var(--box-shadow-light);
+}
+
+[data-theme="dark"] button {
+  box-shadow: var(--box-shadow-dark);
+}
+
+[data-theme="dark"] button:hover {
+  box-shadow: var(--box-shadow-dark);
 }
 
 #theme-toggle {
-  padding: 5px 10px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  background-color: var(--card-background-color);
+  color: var(--text-color);
+  box-shadow: var(--box-shadow-light);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+[data-theme="dark"] #theme-toggle {
+  box-shadow: var(--box-shadow-dark);
+}
+
+#theme-toggle:hover {
+  background-color: var(--border-color);
 }
 
 /* Memo list styles */
 #memo-list {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 15px;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* Slightly larger cards */
+  gap: 15px; /* Maintained gap */
+  margin-top: 20px;
 }
 
-.memo-item {
-  background-color: var(--memo-bg-color);
-  padding: 15px;
-  border-radius: 5px;
+.memo-item { /* This will be within the shadow DOM of memo-item custom element */
+  background-color: var(--card-background-color);
+  padding: 20px;
+  border-radius: 12px; /* More rounded */
   box-shadow: var(--memo-box-shadow);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start; /* Align text to top */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.memo-item:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--box-shadow-light);
+}
+
+[data-theme="dark"] .memo-item:hover {
+  box-shadow: var(--box-shadow-dark);
+}
+
+.memo-item p {
+  margin: 0;
+  color: var(--text-color);
+  flex-grow: 1; /* Allow text to take available space */
+  padding-right: 10px; /* Space between text and button */
+  font-size: 0.95rem;
+}
+
+.memo-item button {
+  padding: 6px 10px; /* Smaller delete button */
+  font-size: 0.85rem;
+  background-color: var(--color-delete-button-bg);
+  color: #fff;
+  border-radius: 6px;
+  box-shadow: none; /* No shadow on delete button */
+}
+
+.memo-item button:hover {
+  background-color: var(--color-delete-button-hover-bg);
+  box-shadow: none;
 }
 
 /* Footer styles */
 footer {
   text-align: center;
   padding: 20px;
-  border-top: 1px solid var(--input-border-color);
+  margin-top: 40px; /* More space above footer */
+  border-top: 1px solid var(--border-color);
+  color: var(--text-color);
+  background-color: var(--background-color); /* Ensure footer background matches theme */
+  font-size: 0.9rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px 15px;
+  }
+
+  header h1 {
+    margin-bottom: 10px;
+  }
+
+  header nav {
+    margin-bottom: 10px;
+    width: 100%;
+    justify-content: space-around;
+  }
+
+  header #theme-toggle {
+    align-self: flex-end;
+  }
+
+  main {
+    padding: 15px;
+  }
+
+  #memo-form {
+    padding: 15px;
+    border-radius: 8px;
+  }
+
+  #memo-list {
+    grid-template-columns: 1fr; /* Single column on small screens */
+  }
+
+  .memo-item {
+    padding: 15px;
+    border-radius: 8px;
+  }
 }

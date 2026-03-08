@@ -56,28 +56,42 @@ if (memoList) {
       const style = document.createElement('style');
       style.textContent = `
         .memo-item {
-          background-color: var(--memo-bg-color);
-          padding: 15px;
-          border-radius: 5px;
+          background-color: var(--card-background-color);
+          padding: 20px;
+          border-radius: 12px;
           box-shadow: var(--memo-box-shadow);
           display: flex;
           justify-content: space-between;
-          align-items: center;
+          align-items: flex-start;
+          transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .memo-item:hover {
+          transform: translateY(-2px);
+          box-shadow: var(--box-shadow-light); /* Assuming box-shadow-light is accessible for hover */
+        }
+        [data-theme="dark"] .memo-item:hover {
+          box-shadow: var(--box-shadow-dark);
         }
         p {
           margin: 0;
           color: var(--text-color);
+          flex-grow: 1;
+          padding-right: 10px;
+          font-size: 0.95rem;
         }
         button {
-          padding: 5px 10px;
+          padding: 6px 10px;
           border: none;
-          background-color: #ff4d4d;
+          background-color: var(--color-delete-button-bg);
           color: #fff;
-          border-radius: 3px;
+          border-radius: 6px;
           cursor: pointer;
+          box-shadow: none;
+          font-size: 0.85rem;
         }
         button:hover {
-          background-color: #ff1a1a;
+          background-color: var(--color-delete-button-hover-bg);
+          box-shadow: none;
         }
       `;
 
