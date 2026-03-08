@@ -3,32 +3,25 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hello World</title>
+  <title>Quote of the Day</title>
   <link href='/style.css' rel='stylesheet'>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2682811481522162"
-     crossorigin="anonymous"></script>
 </head>
 <body>
-  <header>
-    <h1>RecoDinner</h1>
-    <nav>
-      <a href="/">Home</a>
-      <a href="/about.html">About</a>
-      <a href="/contact.html">Contact</a>
-      <a href="/privacy.html">Privacy Policy</a>
-    </nav>
-    <button id="theme-toggle">Toggle Theme</button>
-  </header>
-  <main>
-    <form id="memo-form">
-      <textarea id="memo-input" placeholder="불안한 생각을 여기에 적어보세요..." required></textarea>
-      <button type="submit">메모 추가</button>
-    </form>
-    <section id="memo-list"></section>
-  </main>
-  <footer>
-    <p>&copy; 2026 RecoDinner. All rights reserved.</p>
-  </footer>
+  <div class="calendar-container">
+    <div class="calendar-page current-page">
+      <div class="tear-effect"></div>
+      <div class="date-display" id="date-display"></div>
+      <div class="quote-display" id="quote-display"></div>
+    </div>
+    <div class="calendar-page next-page">
+      <div class="tear-effect"></div>
+      <div class="date-display"></div>
+      <div class="quote-display"></div>
+    </div>
+  </div>
+
+  <button id="next-quote-button">Next Quote (Dev Only)</button>
+
   <script defer type="text/javascript" src="/main.js"></script>
 </body>
 </html>

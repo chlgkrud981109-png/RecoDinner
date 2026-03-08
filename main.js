@@ -1,132 +1,96 @@
-const themeToggleButton = document.getElementById('theme-toggle');
+const quotes = [
+  "Life is short. Smile while you still have teeth.",
+  "Never put off till tomorrow what you can do the day after tomorrow.",
+  "I'm not lazy, I'm on energy-saving mode.",
+  "My bed and I have a special relationship. We're perfect for each other.",
+  "I like hashtags because they look like waffles.",
+  "Stressed spelled backwards is desserts. Coincidence? I think not!",
+  "I'm not superstitious, but I am a little stitious.",
+  "I'm on a seafood diet. I see food and I eat it.",
+  "If at first you don't succeed, then skydiving definitely isn't for you.",
+  "Always remember that you are absolutely unique. Just like everyone else.",
+  "I'm writing a book. I've got the page numbers done.",
+  "The only thing I throw back on Thursdays is a good coffee.",
+  "You don't have to be crazy to hang out with me. I can train you.",
+  "The early bird gets the worm, but the second mouse gets the cheese.",
+  "I'm not saying I'm Superman, but no one has ever seen me and Superman in the same room together.",
+];
 
-// Theme switcher
+const dateDisplay = document.getElementById('date-display');
+const quoteDisplay = document.getElementById('quote-display');
+const nextQuoteButton = document.getElementById('next-quote-button');
+const currentPage = document.querySelector('.calendar-page.current-page');
+const themeToggleButton = document.getElementById('theme-toggle'); // Get existing button
+
+// Theme Toggle
 const currentTheme = localStorage.getItem('theme') || 'light';
-document.documentElement.setAttribute('data-theme', currentTheme);
-
+document.body.classList.toggle('dark-mode', currentTheme === 'dark');
 themeToggleButton.addEventListener('click', () => {
-  let theme = document.documentElement.getAttribute('data-theme');
-  if (theme === 'light') {
-    theme = 'dark';
-  } else {
-    theme = 'light';
-  }
-  document.documentElement.setAttribute('data-theme', theme);
+  document.body.classList.toggle('dark-mode');
+  const theme = document.body.classList.contains('dark-mode') ? 'dark' : 'light';
   localStorage.setItem('theme', theme);
 });
 
-// Memo app logic (only runs on index.html)
-const memoList = document.getElementById('memo-list');
+let quoteIndex = 0; // Tracks the current quote from the array for daily display
+let manualQuoteIndex = 0; // For dev button to cycle through
 
-if (memoList) {
-  const memoForm = document.getElementById('memo-form');
-  const memoInput = document.getElementById('memo-input');
-
-  let memos = JSON.parse(localStorage.getItem('memos')) || [];
-
-  if (memos.length === 0) {
-    memos = [
-      { text: "This is a sample memo. You can delete this." },
-      { text: "Write down your thoughts and worries to clear your head." },
-      { text: "RecoDinner helps you to organize your thoughts." }
-    ];
-    saveMemos();
+function getQuoteForDisplay(isManual = false) {
+  if (isManual) {
+    return quotes[manualQuoteIndex];
+  } else {
+    // Calculate daily quote index
+    const today = new Date();
+    const startOfYear = new Date(today.getFullYear(), 0, 0);
+    const diff = today - startOfYear;
+    const oneDay = 1000 * 60 * 60 * 24;
+    const dayOfYear = Math.floor(diff / oneDay);
+    quoteIndex = dayOfYear % quotes.length;
+    return quotes[quoteIndex];
   }
+}
 
-  class MemoItem extends HTMLElement {
-    constructor() {
-      super();
-      const shadow = this.attachShadow({ mode: 'open' });
-
-      const wrapper = document.createElement('div');
-      wrapper.setAttribute('class', 'memo-item');
-
-      const text = document.createElement('p');
-      text.textContent = this.getAttribute('text');
-
-      const deleteButton = document.createElement('button');
-      deleteButton.textContent = '삭제';
-      deleteButton.addEventListener('click', () => {
-        const memoText = this.getAttribute('text');
-        memos = memos.filter(memo => memo.text !== memoText);
-        saveMemos();
-        renderMemos();
-      });
-
-      const style = document.createElement('style');
-      style.textContent = `
-        .memo-item {
-          background-color: var(--card-background-color);
-          padding: 20px;
-          border-radius: 12px;
-          box-shadow: var(--memo-box-shadow);
-          display: flex;
-          justify-content: space-between;
-          align-items: flex-start;
-          transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-        .memo-item:hover {
-          transform: translateY(-2px);
-          box-shadow: var(--box-shadow-light); /* Assuming box-shadow-light is accessible for hover */
-        }
-        [data-theme="dark"] .memo-item:hover {
-          box-shadow: var(--box-shadow-dark);
-        }
-        p {
-          margin: 0;
-          color: var(--text-color);
-          flex-grow: 1;
-          padding-right: 10px;
-          font-size: 0.95rem;
-        }
-        button {
-          padding: 6px 10px;
-          border: none;
-          background-color: var(--color-delete-button-bg);
-          color: #fff;
-          border-radius: 6px;
-          cursor: pointer;
-          box-shadow: none;
-          font-size: 0.85rem;
-        }
-        button:hover {
-          background-color: var(--color-delete-button-hover-bg);
-          box-shadow: none;
-        }
-      `;
-
-      shadow.appendChild(style);
-      shadow.appendChild(wrapper);
-      wrapper.appendChild(text);
-      wrapper.appendChild(deleteButton);
-    }
-  }
-
-  customElements.define('memo-item', MemoItem);
-
-  function renderMemos() {
-    memoList.innerHTML = '';
-    memos.forEach(memo => {
-      const memoItem = document.createElement('memo-item');
-      memoItem.setAttribute('text', memo.text);
-      memoList.appendChild(memoItem);
-    });
-  }
-
-  function saveMemos() {
-    localStorage.setItem('memos', JSON.stringify(memos));
-  }
-
-  memoForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const memoText = memoInput.value.trim();
-    if (memoText) {
-      memos.push({ text: memoText });
-      saveMemos();
-      renderMemos();
-      memoInput.value = '';
-    }
+function updateCalendarDisplay(animateTear = false, isManual = false) {
+  const today = new Date();
+  dateDisplay.textContent = today.toLocaleDateString('ko-KR', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
   });
 
-  renderMemos();
+  const newQuote = getQuoteForDisplay(isManual);
+
+  if (quoteDisplay.textContent === newQuote && !animateTear) {
+    // Quote is already displayed and no animation needed, unless manual update requires animation
+    return;
+  }
+
+  if (animateTear) {
+    // Simple visual tear effect: move current page slightly and then update content
+    currentPage.classList.add('tear-off-active');
+    setTimeout(() => {
+      quoteDisplay.textContent = newQuote;
+      currentPage.classList.remove('tear-off-active');
+    }, 400); // Half of transition duration
+  } else {
+    quoteDisplay.textContent = newQuote;
+  }
 }
+
+// Initial load
+updateCalendarDisplay(false);
+
+// Dev button functionality
+nextQuoteButton.addEventListener('click', () => {
+  manualQuoteIndex = (manualQuoteIndex + 1) % quotes.length;
+  updateCalendarDisplay(true, true); // Animate tear and use manual quote
+});
+
+// Optional: Daily check and update (if the user keeps the tab open)
+// This is a simplified check. A more robust solution would involve server-side logic
+// or more precise client-side scheduling.
+setInterval(() => {
+  const currentDisplayedQuote = getQuoteForDisplay(false);
+  if (quoteDisplay.textContent !== currentDisplayedQuote) {
+    updateCalendarDisplay(true);
+  }
+}, 1000 * 60 * 60); // Check every hour
