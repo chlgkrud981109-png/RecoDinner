@@ -1,1 +1,94 @@
-/* Add styles here */
+:root {
+  --background-color: #f4f4f4;
+  --text-color: #333;
+  --header-color: #333;
+  --button-bg-color: #333;
+  --button-text-color: #fff;
+  --button-hover-bg-color: #555;
+  --memo-bg-color: #fff;
+  --memo-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  --input-border-color: #ccc;
+}
+
+[data-theme="dark"] {
+  --background-color: #121212;
+  --text-color: #f4f4f4;
+  --header-color: #f4f4f4;
+  --button-bg-color: #f4f4f4;
+  --button-text-color: #333;
+  --button-hover-bg-color: #ddd;
+  --memo-bg-color: #333;
+  --memo-box-shadow: 0 2px 5px rgba(255, 255, 255, 0.1);
+  --input-border-color: #555;
+}
+
+/* General styles */
+body {
+  font-family: sans-serif;
+  line-height: 1.6;
+  margin: 0;
+  padding: 20px;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+h1 {
+  color: var(--header-color);
+}
+
+/* Form styles */
+#memo-form {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+#memo-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--input-border-color);
+  background-color: var(--memo-bg-color);
+  color: var(--text-color);
+  border-radius: 5px;
+  margin-bottom: 10px;
+  resize: vertical;
+}
+
+button {
+  padding: 10px 15px;
+  border: none;
+  background-color: var(--button-bg-color);
+  color: var(--button-text-color);
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: var(--button-hover-bg-color);
+}
+
+#theme-toggle {
+  padding: 5px 10px;
+}
+
+/* Memo list styles */
+#memo-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 15px;
+}
+
+.memo-item {
+  background-color: var(--memo-bg-color);
+  padding: 15px;
+  border-radius: 5px;
+  box-shadow: var(--memo-box-shadow);
+}

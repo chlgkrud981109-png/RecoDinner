@@ -7,8 +7,17 @@
   <link href='/style.css' rel='stylesheet'>
 </head>
 <body>
-  <h1>Hello, world!</h1>
-  <button onclick="console.log('hello');">Press me</button>
+  <header>
+    <h1>RecoDinner</h1>
+    <button id="theme-toggle">Toggle Theme</button>
+  </header>
+  <main>
+    <form id="memo-form">
+      <textarea id="memo-input" placeholder="불안한 생각을 여기에 적어보세요..." required></textarea>
+      <button type="submit">메모 추가</button>
+    </form>
+    <section id="memo-list"></section>
+  </main>
   <script defer type="text/javascript" src="/main.js"></script>
 </body>
 </html>
