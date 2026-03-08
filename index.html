@@ -1,27 +1,15 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Quote of the Day</title>
-  <link href='/style.css' rel='stylesheet'>
-</head>
-<body>
-  <div class="calendar-container">
-    <div class="calendar-page current-page">
-      <div class="tear-effect"></div>
-      <div class="date-display" id="date-display"></div>
-      <div class="quote-display" id="quote-display"></div>
-    </div>
-    <div class="calendar-page next-page">
-      <div class="tear-effect"></div>
-      <div class="date-display"></div>
-      <div class="quote-display"></div>
-    </div>
-  </div>
-
-  <button id="next-quote-button">Next Quote (Dev Only)</button>
-
-  <script defer type="text/javascript" src="/main.js"></script>
-</body>
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>일본 감성 찢어지는 달력</title>
+    <!-- 구글 폰트: 명조체 계열 추가 -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
 </html>

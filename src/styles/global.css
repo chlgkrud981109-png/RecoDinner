@@ -1,0 +1,52 @@
+:root {
+  --pastel-bg: #fdf5e6; /* 몽글몽글한 미색 바탕 */
+  --pastel-card: #fffdf9; /* 밝은 한지 톤 */
+  --accent-color: #e57373; /* 은은한 포인트 붉은색 */
+  --text-main: #333333;
+  --text-date: #6b7280;
+  --mincho-font: 'Noto Serif KR', 'Mincho', serif;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--pastel-bg);
+  font-family: var(--mincho-font);
+  color: var(--text-main);
+  overflow: hidden; /* 스와이프 인터랙션을 위해 스크롤 방지 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100dvh;
+}
+
+.calendar-container {
+  position: relative;
+  width: 90vw;
+  max-width: 400px;
+  height: 60vh;
+  max-height: 550px;
+  perspective: 1000px;
+  user-select: none;
+}
+
+/* Washi Paper 질감 구현 */
+.paper-texture {
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)),
+    url('https://www.transparenttextures.com/patterns/rice-paper-2.png');
+  background-blend-mode: overlay;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.03);
+}
+
+.tear-line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 10px;
+  background-image: radial-gradient(circle at 10px -5px, transparent 15px, var(--pastel-bg) 16px);
+  background-size: 20px 20px;
+  z-index: 10;
+}
