@@ -27,7 +27,6 @@ const Calendar: React.FC = () => {
   const [archive, setArchive] = useState<any[]>([]);
   const [todayDate, setTodayDate] = useState('');
 
-  // 매일 바뀌는 명언 인덱스 계산 (main.js 로직)
   useEffect(() => {
     const today = new Date();
     setTodayDate(today.toLocaleDateString('ko-KR', {
@@ -47,7 +46,6 @@ const Calendar: React.FC = () => {
     const tornQuote = MOCK_QUOTES[currentIndex];
     setArchive(prev => [...prev, tornQuote]);
     
-    // 다음 명언으로 교체 (찢을 때마다 순환)
     setTimeout(() => {
       setCurrentIndex((prev) => (prev + 1) % MOCK_QUOTES.length);
     }, 100);
@@ -55,8 +53,15 @@ const Calendar: React.FC = () => {
 
   return (
     <div className="calendar-container">
-      {/* 배경 카드 */}
-      <div style={{ position: 'absolute', width: '100%', height: '100%', opacity: 0.5 }}>
+      {/* 상단 제본부 */}
+      <div className="calendar-binding">
+        <div style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.6rem', letterSpacing: '2px' }}>
+          DAILY QUOTES
+        </div>
+      </div>
+
+      {/* 배경 카드 (중첩 레이어 느낌) */}
+      <div className="paper-stack" style={{ position: 'absolute', width: '100%', height: '100%', opacity: 0.5 }}>
         <QuoteCard 
           date={todayDate}
           quote={MOCK_QUOTES[(currentIndex + 1) % MOCK_QUOTES.length].quote}
@@ -68,18 +73,20 @@ const Calendar: React.FC = () => {
       <AnimatePresence mode="wait">
         <motion.div
           key={currentIndex}
-          initial={{ opacity: 0, scale: 0.95 }}
+          initial={{ opacity: 0, scale: 0.98 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.4 }}
           style={{ width: '100%', height: '100%', position: 'absolute' }}
         >
           <TearEffect onTear={handleTear}>
-            <QuoteCard 
-              date={todayDate}
-              quote={MOCK_QUOTES[currentIndex].quote}
-              author={MOCK_QUOTES[currentIndex].author}
-            />
+            <div className="paper-stack" style={{ width: '100%', height: '100%' }}>
+              <QuoteCard 
+                date={todayDate}
+                quote={MOCK_QUOTES[currentIndex].quote}
+                author={MOCK_QUOTES[currentIndex].author}
+              />
+            </div>
           </TearEffect>
         </motion.div>
       </AnimatePresence>
@@ -92,7 +99,7 @@ const Calendar: React.FC = () => {
         color: 'var(--text-date)',
         fontSize: '0.8rem'
       }}>
-        위로 밀어서 오늘을 찢어보세요 ({archive.length}개 보관됨)
+        아래로 찢어서 오늘을 보관하세요 ({archive.length}개 보관됨)
       </div>
     </div>
   );
