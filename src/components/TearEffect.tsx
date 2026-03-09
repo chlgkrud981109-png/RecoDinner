@@ -7,31 +7,36 @@ interface TearEffectProps {
 }
 
 const TearEffect: React.FC<TearEffectProps> = ({ children, onTear }) => {
+  const x = useMotionValue(0);
   const y = useMotionValue(0);
   const controls = useAnimation();
 
-  // 드래그 양에 따른 부드러운 회전 및 투명도 변화
-  const rotate = useTransform(y, [0, -200], [0, -8]);
-  const skewX = useTransform(y, [0, -200], [0, 4]);
-  const opacity = useTransform(y, [0, -400], [1, 0]);
+  // 드래그 방향에 따른 실감나는 회전 (사선 찢기 느낌)
+  const rotate = useTransform([x, y], ([latestX, latestY]: any) => {
+    return (latestX / 20) + (latestY / 10);
+  });
+  
+  const opacity = useTransform(y, [0, 400], [1, 0]);
 
   const handleDragEnd = async (event: any, info: PanInfo) => {
-    // 150px 이상 위로 드래그 시 찢기 성공
-    if (info.offset.y < -150) {
+    // 100px 이상 아래나 사선으로 드래그 시 찢기 성공
+    if (info.offset.y > 100 || info.offset.x > 100) {
       await controls.start({
-        y: -1000,
-        rotate: -20,
-        scale: 0.9,
-        transition: { duration: 0.6, ease: [0.32, 0, 0.67, 0] }
+        x: info.offset.x > 0 ? 500 : -500,
+        y: 800,
+        rotate: info.offset.x > 0 ? 45 : -45,
+        opacity: 0,
+        transition: { duration: 0.5, ease: "easeIn" }
       });
       onTear();
-      // 위치 초기화 (새 카드가 나타날 때를 대비)
+      // 위치 초기화
+      x.set(0);
       y.set(0);
-      controls.set({ y: 0, rotate: 0, scale: 1, opacity: 1 });
+      controls.set({ x: 0, y: 0, rotate: 0, opacity: 1 });
     } else {
-      // 제자리로 탄성 있게 복귀 (Spring Physics)
+      // 제자리로 복귀
       controls.start({ 
-        y: 0, rotate: 0, skewX: 0,
+        x: 0, y: 0, rotate: 0,
         transition: { type: 'spring', stiffness: 300, damping: 20 } 
       });
     }
@@ -39,10 +44,10 @@ const TearEffect: React.FC<TearEffectProps> = ({ children, onTear }) => {
 
   return (
     <motion.div
-      drag="y"
-      dragConstraints={{ bottom: 0 }}
-      dragElastic={0.6}
-      style={{ y, rotate, skewX, opacity, cursor: 'grab', position: 'absolute', width: '100%', height: '100%' }}
+      drag
+      dragConstraints={{ top: 0 }}
+      dragElastic={0.4}
+      style={{ x, y, rotate, opacity, cursor: 'grab', position: 'absolute', width: '100%', height: '100%' }}
       animate={controls}
       onDragEnd={handleDragEnd}
       whileTap={{ cursor: 'grabbing' }}

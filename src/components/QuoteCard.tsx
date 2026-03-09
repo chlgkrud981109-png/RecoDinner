@@ -8,7 +8,7 @@ interface QuoteCardProps {
 
 const QuoteCard: React.FC<QuoteCardProps> = ({ date, quote, author }) => {
   return (
-    <div className="paper-texture" style={{
+    <div className="paper-texture torn-edge-top" style={{
       width: '100%',
       height: '100%',
       backgroundColor: 'var(--pastel-card)',
