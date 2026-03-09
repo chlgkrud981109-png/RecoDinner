@@ -5,20 +5,49 @@ import QuoteCard from './QuoteCard';
 import '../styles/global.css';
 
 const MOCK_QUOTES = [
-  { id: 1, date: '2024.03.08', quote: '오늘 걷지 않으면\n내일은 뛰어야 한다.', author: 'Anonymous' },
-  { id: 2, date: '2024.03.09', quote: '여백의 미는\n채우지 않음에서 온다.', author: 'Traditional' },
-  { id: 3, date: '2024.03.10', quote: '작은 것들이 모여\n커다란 기적을 만든다.', author: 'Seneca' },
+  { id: 1, quote: "Life is short. Smile while you still have teeth.", author: "Anonymous" },
+  { id: 2, quote: "Never put off till tomorrow what you can do the day after tomorrow.", author: "Mark Twain" },
+  { id: 3, quote: "I'm not lazy, I'm on energy-saving mode.", author: "Anonymous" },
+  { id: 4, quote: "My bed and I have a special relationship. We're perfect for each other.", author: "Anonymous" },
+  { id: 5, quote: "I like hashtags because they look like waffles.", author: "Anonymous" },
+  { id: 6, quote: "Stressed spelled backwards is desserts. Coincidence? I think not!", author: "Anonymous" },
+  { id: 7, quote: "I'm not superstitious, but I am a little stitious.", author: "Michael Scott" },
+  { id: 8, quote: "I'm on a seafood diet. I see food and I eat it.", author: "Anonymous" },
+  { id: 9, quote: "If at first you don't succeed, then skydiving definitely isn't for you.", author: "Anonymous" },
+  { id: 10, quote: "Always remember that you are absolutely unique. Just like everyone else.", author: "Margaret Mead" },
+  { id: 11, quote: "I'm writing a book. I've got the page numbers done.", author: "Steven Wright" },
+  { id: 12, quote: "The only thing I throw back on Thursdays is a good coffee.", author: "Anonymous" },
+  { id: 13, quote: "You don't have to be crazy to hang out with me. I can train you.", author: "Anonymous" },
+  { id: 14, quote: "The early bird gets the worm, but the second mouse gets the cheese.", author: "Anonymous" },
+  { id: 15, quote: "I'm not saying I'm Superman, but no one has ever seen me and Superman in the same room together.", author: "Anonymous" },
 ];
 
 const Calendar: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [archive, setArchive] = useState<any[]>([]);
+  const [todayDate, setTodayDate] = useState('');
+
+  // 매일 바뀌는 명언 인덱스 계산 (main.js 로직)
+  useEffect(() => {
+    const today = new Date();
+    setTodayDate(today.toLocaleDateString('ko-KR', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    }));
+
+    const startOfYear = new Date(today.getFullYear(), 0, 0);
+    const diff = today.getTime() - startOfYear.getTime();
+    const oneDay = 1000 * 60 * 60 * 24;
+    const dayOfYear = Math.floor(diff / oneDay);
+    setCurrentIndex(dayOfYear % MOCK_QUOTES.length);
+  }, []);
 
   const handleTear = () => {
     const tornQuote = MOCK_QUOTES[currentIndex];
     setArchive(prev => [...prev, tornQuote]);
     
-    // 다음 명언으로 교체 (마지막이면 처음으로)
+    // 다음 명언으로 교체 (찢을 때마다 순환)
     setTimeout(() => {
       setCurrentIndex((prev) => (prev + 1) % MOCK_QUOTES.length);
     }, 100);
@@ -26,15 +55,19 @@ const Calendar: React.FC = () => {
 
   return (
     <div className="calendar-container">
-      {/* 배경 카드 (현재 카드 뒤에 보일 다음 카드) */}
+      {/* 배경 카드 */}
       <div style={{ position: 'absolute', width: '100%', height: '100%', opacity: 0.5 }}>
-        <QuoteCard {...MOCK_QUOTES[(currentIndex + 1) % MOCK_QUOTES.length]} />
+        <QuoteCard 
+          date={todayDate}
+          quote={MOCK_QUOTES[(currentIndex + 1) % MOCK_QUOTES.length].quote}
+          author={MOCK_QUOTES[(currentIndex + 1) % MOCK_QUOTES.length].author}
+        />
       </div>
 
       {/* 찢어지는 효과가 적용된 현재 카드 */}
       <AnimatePresence mode="wait">
         <motion.div
-          key={MOCK_QUOTES[currentIndex].id}
+          key={currentIndex}
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0 }}
@@ -42,12 +75,15 @@ const Calendar: React.FC = () => {
           style={{ width: '100%', height: '100%', position: 'absolute' }}
         >
           <TearEffect onTear={handleTear}>
-            <QuoteCard {...MOCK_QUOTES[currentIndex]} />
+            <QuoteCard 
+              date={todayDate}
+              quote={MOCK_QUOTES[currentIndex].quote}
+              author={MOCK_QUOTES[currentIndex].author}
+            />
           </TearEffect>
         </motion.div>
       </AnimatePresence>
 
-      {/* 보관함 버튼 (UI 하단 가이드) */}
       <div style={{ 
         position: 'absolute', 
         bottom: '-60px', 

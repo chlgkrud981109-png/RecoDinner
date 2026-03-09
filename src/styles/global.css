@@ -1,10 +1,18 @@
 :root {
-  --pastel-bg: #fdf5e6; /* 몽글몽글한 미색 바탕 */
-  --pastel-card: #fffdf9; /* 밝은 한지 톤 */
-  --accent-color: #e57373; /* 은은한 포인트 붉은색 */
+  --pastel-bg: #fdf5e6;
+  --pastel-card: #fffdf9;
+  --accent-color: #e57373;
   --text-main: #333333;
   --text-date: #6b7280;
   --mincho-font: 'Noto Serif KR', 'Mincho', serif;
+}
+
+body.dark-mode {
+  --pastel-bg: #1a1a1a;
+  --pastel-card: #2c2c2c;
+  --text-main: #eeeeee;
+  --text-date: #9ca3af;
+  --accent-color: #ff8a8a;
 }
 
 body {
@@ -13,11 +21,12 @@ body {
   background-color: var(--pastel-bg);
   font-family: var(--mincho-font);
   color: var(--text-main);
-  overflow: hidden; /* 스와이프 인터랙션을 위해 스크롤 방지 */
+  overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100dvh;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .calendar-container {
