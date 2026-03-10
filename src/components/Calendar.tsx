@@ -4,7 +4,7 @@ import TearEffect from './TearEffect';
 import QuoteCard from './QuoteCard';
 import '../styles/global.css';
 
-const MOCK_QUOTES = [
+export const MOCK_QUOTES = [
   { id: 1, quote: "Life is short. Smile while you still have teeth.", author: "Anonymous" },
   { id: 2, quote: "Never put off till tomorrow what you can do the day after tomorrow.", author: "Mark Twain" },
   { id: 3, quote: "I'm not lazy, I'm on energy-saving mode.", author: "Anonymous" },
@@ -22,9 +22,13 @@ const MOCK_QUOTES = [
   { id: 15, quote: "I'm not saying I'm Superman, but no one has ever seen me and Superman in the same room together.", author: "Anonymous" },
 ];
 
-const Calendar: React.FC = () => {
+interface CalendarProps {
+  onTear: (quote: any) => void;
+  archiveCount: number;
+}
+
+const Calendar: React.FC<CalendarProps> = ({ onTear, archiveCount }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [archive, setArchive] = useState<any[]>([]);
   const [todayDate, setTodayDate] = useState('');
 
   useEffect(() => {
@@ -44,7 +48,7 @@ const Calendar: React.FC = () => {
 
   const handleTear = () => {
     const tornQuote = MOCK_QUOTES[currentIndex];
-    setArchive(prev => [...prev, tornQuote]);
+    onTear(tornQuote);
     
     setTimeout(() => {
       setCurrentIndex((prev) => (prev + 1) % MOCK_QUOTES.length);
@@ -70,10 +74,10 @@ const Calendar: React.FC = () => {
       </div>
 
       {/* 찢어지는 효과가 적용된 현재 카드 */}
-      <AnimatePresence mode="wait">
+      <AnimatePresence>
         <motion.div
           key={currentIndex}
-          initial={{ opacity: 0, scale: 0.98 }}
+          initial={false}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.4 }}
@@ -99,7 +103,7 @@ const Calendar: React.FC = () => {
         color: 'var(--text-date)',
         fontSize: '0.8rem'
       }}>
-        아래로 찢어서 오늘을 보관하세요 ({archive.length}개 보관됨)
+        아래로 찢어서 오늘을 보관하세요 ({archiveCount}개 보관됨)
       </div>
     </div>
   );

@@ -24,19 +24,96 @@ body {
   font-family: var(--mincho-font);
   color: var(--text-main);
   overflow: hidden;
+  height: 100dvh;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+}
+
+.App {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.main-content {
+  flex: 1;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100dvh;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  padding-bottom: 70px; /* Space for bottom nav */
+  position: relative;
+}
+
+/* Bottom Navigation Styles */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 70px;
+  background-color: var(--pastel-card);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.05);
+  z-index: 100;
+  padding: 0 1rem;
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-date);
+  transition: all 0.2s ease;
+  position: relative;
+  width: 25%;
+  height: 100%;
+}
+
+.nav-item.active {
+  color: var(--accent-color);
+}
+
+.nav-label {
+  font-size: 0.7rem;
+  font-weight: 500;
+  font-family: var(--mincho-font);
+}
+
+.nav-indicator {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30px;
+  height: 3px;
+  background-color: var(--accent-color);
+  border-radius: 0 0 4px 4px;
 }
 
 .calendar-container {
   position: relative;
   width: 90vw;
   max-width: 400px;
-  height: 60vh;
-  max-height: 550px;
+  height: 55vh;
+  max-height: 500px;
   perspective: 1000px;
   user-select: none;
 }
