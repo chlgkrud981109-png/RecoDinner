@@ -5,21 +5,48 @@ import QuoteCard from './QuoteCard';
 import '../styles/global.css';
 
 export const MOCK_QUOTES = [
-  { id: 1, quote: "Life is short. Smile while you still have teeth.", author: "Anonymous" },
-  { id: 2, quote: "Never put off till tomorrow what you can do the day after tomorrow.", author: "Mark Twain" },
-  { id: 3, quote: "I'm not lazy, I'm on energy-saving mode.", author: "Anonymous" },
-  { id: 4, quote: "My bed and I have a special relationship. We're perfect for each other.", author: "Anonymous" },
-  { id: 5, quote: "I like hashtags because they look like waffles.", author: "Anonymous" },
-  { id: 6, quote: "Stressed spelled backwards is desserts. Coincidence? I think not!", author: "Anonymous" },
-  { id: 7, quote: "I'm not superstitious, but I am a little stitious.", author: "Michael Scott" },
-  { id: 8, quote: "I'm on a seafood diet. I see food and I eat it.", author: "Anonymous" },
-  { id: 9, quote: "If at first you don't succeed, then skydiving definitely isn't for you.", author: "Anonymous" },
-  { id: 10, quote: "Always remember that you are absolutely unique. Just like everyone else.", author: "Margaret Mead" },
-  { id: 11, quote: "I'm writing a book. I've got the page numbers done.", author: "Steven Wright" },
-  { id: 12, quote: "The only thing I throw back on Thursdays is a good coffee.", author: "Anonymous" },
-  { id: 13, quote: "You don't have to be crazy to hang out with me. I can train you.", author: "Anonymous" },
-  { id: 14, quote: "The early bird gets the worm, but the second mouse gets the cheese.", author: "Anonymous" },
-  { id: 15, quote: "I'm not saying I'm Superman, but no one has ever seen me and Superman in the same room together.", author: "Anonymous" },
+  { 
+    id: 1, 
+    quote: "가장 큰 위험은 아무런 위험도 감수하지 않는 것이다.", 
+    author: "마크 저커버그",
+    description: "변화하는 세상에서 반드시 실패하는 유일한 전략은 위험을 감수하지 않는 것입니다. 오늘 작은 도전 하나를 시작해보세요."
+  },
+  { 
+    id: 2, 
+    quote: "내일 일을 오늘 걱정하지 마라. 내일은 내일의 태양이 뜬다.", 
+    author: "데일 카네기",
+    description: "우리가 하는 걱정의 90%는 일어나지 않을 일들에 대한 것입니다. 현재의 순간에 집중하며 마음의 평화를 찾아보세요."
+  },
+  { 
+    id: 3, 
+    quote: "행복은 습관이다. 그것을 몸에 익혀라.", 
+    author: "허버트 허버드",
+    description: "행복은 거창한 사건이 아니라 매일 반복되는 작은 긍정적인 생각들에서 시작됩니다. 지금 이 순간 감사한 것 하나를 떠올려보세요."
+  },
+  { 
+    id: 4, 
+    quote: "어제와 똑같은 삶을 살면서 다른 미래를 기대하는 것은 미친 짓이다.", 
+    author: "알베르트 아인슈타인",
+    description: "삶의 변화를 원한다면 아주 작은 습관부터 바꿔야 합니다. 오늘 당신의 루틴에 아주 작은 변화를 주어보세요."
+  },
+  { 
+    id: 5, 
+    quote: "성공은 최종적인 것이 아니며, 실패는 치명적인 것이 아니다. 중요한 것은 지속하는 용기다.", 
+    author: "윈스턴 처칠",
+    description: "넘어지는 것은 실패가 아닙니다. 다시 일어나지 않는 것이 실패입니다. 당신의 끈기가 결국 결과를 만들어낼 것입니다."
+  },
+  { 
+    id: 6, 
+    quote: "자신을 믿는 순간, 어떻게 살아야 할지 알게 된다.", 
+    author: "요한 볼프강 폰 괴테",
+    description: "타인의 시선이 아닌 내면의 목소리에 귀를 기울여보세요. 당신은 당신이 생각하는 것보다 훨씬 강하고 지혜로운 사람입니다."
+  },
+  { 
+    id: 7, 
+    quote: "길을 잃는다는 것은 곧 길을 찾게 된다는 뜻이다.", 
+    author: "동양 격언",
+    description: "방황은 성장의 과정입니다. 지금 정체되어 있다고 느껴진다면, 그것은 새로운 길을 발견하기 위한 준비 단계일 뿐입니다."
+  }
 ];
 
 interface CalendarProps {
@@ -70,6 +97,7 @@ const Calendar: React.FC<CalendarProps> = ({ onTear, archiveCount }) => {
           date={todayDate}
           quote={MOCK_QUOTES[(currentIndex + 1) % MOCK_QUOTES.length].quote}
           author={MOCK_QUOTES[(currentIndex + 1) % MOCK_QUOTES.length].author}
+          description={MOCK_QUOTES[(currentIndex + 1) % MOCK_QUOTES.length].description}
         />
       </div>
 
@@ -89,6 +117,7 @@ const Calendar: React.FC<CalendarProps> = ({ onTear, archiveCount }) => {
                 date={todayDate}
                 quote={MOCK_QUOTES[currentIndex].quote}
                 author={MOCK_QUOTES[currentIndex].author}
+                description={MOCK_QUOTES[currentIndex].description}
               />
             </div>
           </TearEffect>

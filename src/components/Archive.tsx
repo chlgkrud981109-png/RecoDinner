@@ -12,13 +12,15 @@ const Archive: React.FC<ArchiveProps> = ({ archive }) => {
       height: '100%', 
       overflowY: 'auto', 
       padding: '20px',
+      paddingTop: '60px',
       paddingBottom: '100px' 
     }}>
       <h2 style={{ 
         textAlign: 'center', 
         fontFamily: 'var(--mincho-font)', 
         color: 'var(--text-main)',
-        marginBottom: '30px'
+        marginBottom: '30px',
+        fontSize: '1.5rem'
       }}>나의 명언 서랍</h2>
       
       {archive.length === 0 ? (

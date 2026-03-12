@@ -45,6 +45,7 @@ const Community: React.FC = () => {
       height: '100%', 
       overflowY: 'auto', 
       padding: '20px',
+      paddingTop: '60px',
       paddingBottom: '100px',
       maxWidth: '600px',
       margin: '0 auto'
@@ -53,7 +54,8 @@ const Community: React.FC = () => {
         textAlign: 'center', 
         fontFamily: 'var(--mincho-font)', 
         color: 'var(--text-main)',
-        marginBottom: '20px'
+        marginBottom: '20px',
+        fontSize: '1.5rem'
       }}>명언 광장</h2>
       
       <p style={{ 
