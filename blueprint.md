@@ -11,21 +11,9 @@ This service will display a new, light-hearted quote every day, inspired by a te
 *   **"Tear" Animation:** When a new day's quote is displayed, the previous quote visually "tears off" from the top.
 *   **Persistent Quote Display:** The quote for the current day remains visible until the next day.
 *   **Quote Storage:** A collection of light-hearted quotes will be embedded in the application.
+*   **Monetization:** Integration with Google AdSense for revenue generation.
 
-## Design
+## Plan (Current)
 
-The UI will mimic a physical tear-off calendar.
-*   **Calendar Card:** A central card element will represent the calendar page.
-*   **Quote Display:** The quote will be prominently displayed on the card.
-*   **Date Display:** The current date will be shown, possibly at the top of the card.
-*   **Tear Effect:** The top edge of the calendar card will have a subtle "torn" paper effect. When the quote updates, an animation will simulate the tearing.
-
-## Plan
-
-1.  **HTML Structure:** Create `index.html` with a container for the calendar and quote display.
-2.  **CSS Styling:** Implement the tear-off calendar design in `style.css`, including the torn paper effect and the overall aesthetic.
-3.  **JavaScript Logic:** Implement `main.js` to:
-    *   Store and manage the collection of quotes.
-    *   Determine the current day's quote based on the date.
-    *   Update the display daily.
-    *   Implement the "tear-off" visual effect/animation.
+1.  **AdSense Integration:** Add the Google AdSense code snippet to the `<head>` of `index.html` to enable ad serving.
+2.  **Deployment Setup:** Configure Firebase Hosting for the project `recodinner-42518553` and deploy to make the site permanently accessible.
